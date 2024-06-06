@@ -25,13 +25,10 @@
         #imageDisplay {
             width: 100%;
         }
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <input type="file" id="fileInput" accept="image/*" class="hidden">
+    <input type="file" id="fileInput" accept="image/*">
     <div id="imageContainer">
         <img id="imageDisplay" src="" alt="Uploaded Image">
     </div>
@@ -47,6 +44,7 @@
             if (savedImage) {
                 imageDisplay.src = savedImage;
                 imageContainer.style.display = 'block';
+                fileInput.style.display = 'none';
             }
 
             fileInput.addEventListener('change', function(event) {
@@ -58,14 +56,14 @@
                         imageDisplay.src = imageData;
                         imageContainer.style.display = 'block';
                         localStorage.setItem('uploadedImage', imageData); // Save the image in localStorage
-                        fileInput.classList.add('hidden');
+                        fileInput.style.display = 'none';
                     }
                     reader.readAsDataURL(file);
                 }
             });
 
             imageDisplay.addEventListener('dblclick', function() {
-                fileInput.classList.remove('hidden');
+                fileInput.style.display = 'block';
                 fileInput.click();
             });
         });
