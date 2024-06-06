@@ -66,6 +66,20 @@
                 fileInput.style.display = 'block';
                 fileInput.click();
             });
+
+            // Request full-screen mode on user interaction
+            document.addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(console.log);
+                }
+            });
+
+            // Hide the address bar on mobile devices
+            window.addEventListener('scroll', function() {
+                setTimeout(function() {
+                    window.scrollTo(0, 1);
+                }, 0);
+            });
         });
     </script>
 </body>
