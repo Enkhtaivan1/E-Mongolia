@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Display</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        #imageContainer {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            display: none;
+        }
+        #imageDisplay {
+            width: 100%;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="fileInput" accept="image/*" class="hidden">
+    <div id="imageContainer">
+        <img id="imageDisplay" src="" alt="Uploaded Image">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const fileInput = document.getElementById('fileInput');
+            const imageContainer = document.getElementById('imageContainer');
+            const imageDisplay = document.getElementById('imageDisplay');
+
+            // Check if there's an image in localStorage and display it
+            const savedImage = localStorage.getItem('uploadedImage');
+            if (savedImage) {
+                imageDisplay.src = savedImage;
+                imageContainer.style.display = 'block';
+            }
+
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageData = e.target.result;
+                        imageDisplay.src = imageData;
+                        imageContainer.style.display = 'block';
+                        localStorage.setItem('uploadedImage', imageData); // Save the image in localStorage
+                        fileInput.classList.add('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            imageDisplay.addEventListener('dblclick', function() {
+                fileInput.classList.remove('hidden');
+                fileInput.click();
+            });
+        });
+    </script>
+</body>
+</html>
