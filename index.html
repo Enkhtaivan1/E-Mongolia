@@ -24,10 +24,6 @@
         }
         #imageDisplay {
             width: 100%;
-            height: auto;
-        }
-        .hidden {
-            display: none;
         }
     </style>
 </head>
@@ -49,10 +45,6 @@
                 imageDisplay.src = savedImage;
                 imageContainer.style.display = 'block';
                 fileInput.style.display = 'none';
-                // Request full-screen mode
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(console.log);
-                }
             }
 
             fileInput.addEventListener('change', function(event) {
@@ -65,10 +57,6 @@
                         imageContainer.style.display = 'block';
                         localStorage.setItem('uploadedImage', imageData); // Save the image in localStorage
                         fileInput.style.display = 'none';
-                        // Request full-screen mode
-                        if (!document.fullscreenElement) {
-                            document.documentElement.requestFullscreen().catch(console.log);
-                        }
                     }
                     reader.readAsDataURL(file);
                 }
@@ -78,21 +66,8 @@
                 fileInput.style.display = 'block';
                 fileInput.click();
             });
-
-            // Re-enter full-screen mode on interaction
-            document.addEventListener('click', function() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(console.log);
-                }
-            });
-
-            // Hide the address bar on mobile devices
-            window.addEventListener('scroll', function() {
-                setTimeout(function() {
-                    window.scrollTo(0, 1);
-                }, 0);
-            });
         });
     </script>
 </body>
 </html>
+
